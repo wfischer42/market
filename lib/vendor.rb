@@ -7,10 +7,10 @@ class Vendor
   end
 
   def check_stock(type)
-    @inventory[type]
+    @inventory[type.capitalize]
   end
 
   def stock(type, count)
-    @inventory[type] += count
+    @inventory[type.capitalize] += count
   end
 end
