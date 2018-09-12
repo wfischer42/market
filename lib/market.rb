@@ -42,4 +42,14 @@ class Market
       total + added
     end
   end
+
+  def sell(item, count)
+    item = item.downcase
+    return false if total_inventory[item] < count
+    @vendors.each do |vendor|
+      shortage = vendor.sell(item, count)
+      return true if shortage == 0
+      count = shortage
+    end
+  end
 end
