@@ -23,4 +23,23 @@ class Market
       vendor.check_stock(item) > 0
     end
   end
+
+  def sorted_item_list
+    list = @vendors.flat_map do |vendor|
+      vendor.inventory.keys
+    end.uniq
+    list.sort
+  end
+
+  def total_inventory
+    @vendors.inject(Hash.new(0)) do |inventory, vendor|
+      merge_vendor_inventory(inventory, vendor)
+    end
+  end
+
+  def merge_vendor_inventory(inventory, vendor)
+    inventory.merge(vendor.inventory) do |key, total, added|
+      total + added
+    end
+  end
 end
